@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todoapp/firebase_utils.dart';
+
 import '../../model/task.dart';
 import '../../providers/list_provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
+  const AddTaskBottomSheet({super.key});
+
   @override
   State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
@@ -24,7 +26,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   Widget build(BuildContext context) {
     listProvider = Provider.of<ListProvider>(context);
     return Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -104,7 +106,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                         addTask();
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
+                        backgroundColor: WidgetStateProperty.all<Color>(
                             AppColors.primaryColor),
                       ),
                       child: Text(
@@ -124,9 +126,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     Task task = Task(title: title, description: des, dateTime: selectDate);
     if (formKey.currentState?.validate() == true) {
       // return of addTaskToFireStror (Future<void>) so don't need to put await & async
-      FirebaseUtils.addTaskToFireStror(task).timeout(Duration(seconds: 1),
+      FirebaseUtils.addTaskToFireStror(task).timeout(const Duration(seconds: 1),
           onTimeout: () {
-        print('Task Added Succesfully');
         listProvider.getAllTasksFromFireStore();
         Navigator.pop(context);
       });
@@ -140,7 +141,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
         // The available days is 1 year from date today
-        lastDate: DateTime.now().add(Duration(days: 365)));
+        lastDate: DateTime.now().add(const Duration(days: 365)));
     if (chosenDate != null) {
       selectDate = chosenDate;
       setState(() {});

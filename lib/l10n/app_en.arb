@@ -22,5 +22,7 @@
   "edit_task" : "Edit Task",
   "no_tasks_added": "No Tasks Added ..",
   "delete" : "Delete",
-  "edit" : "Edit"
+  "edit" : "Edit" ,
+  "ok" : "Ok" ,
+  "you_cannot_change_the_task" : "You cannot change the task, the task is already finished."
 }

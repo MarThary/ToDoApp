@@ -5,7 +5,7 @@ import 'package:todoapp/app_colors.dart';
 import 'package:todoapp/providers/app_config_provider.dart';
 
 class LanguageBottomSheet extends StatefulWidget {
-  const LanguageBottomSheet({Key? key}) : super(key: key);
+  const LanguageBottomSheet({super.key});
 
   @override
   State<LanguageBottomSheet> createState() => _LanguageBottomSheetState();
@@ -16,7 +16,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
   Widget build(BuildContext context) {
     var provider = Provider.of<AppConfigProvider>(context);
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -24,7 +24,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
             padding: const EdgeInsets.all(12.0),
             child: InkWell(
                 onTap: () {
-                  provider.chanageLanguage('en');
+                  provider.changeLanguage('en');
                 },
                 child: provider.appLanguage == 'en'
                     ? getSelectedItemWidget(
@@ -36,7 +36,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
             padding: const EdgeInsets.all(12.0),
             child: InkWell(
                 onTap: () {
-                  provider.chanageLanguage('ar');
+                  provider.changeLanguage('ar');
                 },
                 child: provider.appLanguage == 'ar'
                     ? getSelectedItemWidget(
@@ -58,7 +58,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
                 .textTheme
                 .bodySmall
                 ?.copyWith(color: AppColors.primaryColor)),
-        Icon(Icons.check, size: 30, color: AppColors.primaryColor)
+        const Icon(Icons.check, size: 30, color: AppColors.primaryColor)
       ],
     );
   }

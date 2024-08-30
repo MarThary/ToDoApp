@@ -23,6 +23,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
   late TextEditingController descriptionController;
   late DateTime selectDate;
   var listProvider;
+
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -66,7 +67,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
             child: Container(
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.02),
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               width: MediaQuery.of(context).size.width * 0.85,
               decoration: BoxDecoration(
                 color: provider.isDarkMode()
@@ -88,7 +89,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                             ),
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     TextFormField(
                       controller: titleController,
                       style: Theme.of(context).textTheme.bodyMedium,
@@ -104,7 +105,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                               AppLocalizations.of(context)!.this_is_title,
                           labelStyle: Theme.of(context).textTheme.titleMedium),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     TextFormField(
                       controller: descriptionController,
                       style: Theme.of(context).textTheme.bodyMedium,
@@ -119,12 +120,12 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                           labelText: AppLocalizations.of(context)!.task_details,
                           labelStyle: Theme.of(context).textTheme.titleMedium),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Text(
                       AppLocalizations.of(context)!.select_time,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     InkWell(
                       onTap: () {
                         showCalender();
@@ -137,7 +138,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                               .titleMedium
                               ?.copyWith(color: Colors.grey)),
                     ),
-                    SizedBox(height: 100.0),
+                    const SizedBox(height: 100.0),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -149,7 +150,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryColor,
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
@@ -176,14 +177,13 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
         context: context,
         initialDate: selectDate,
         firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(Duration(days: 365)));
+        lastDate: DateTime.now().add(const Duration(days: 365)));
     if (chosenDate != null) {
       setState(() {
         selectDate = chosenDate;
       });
     }
   }
-
   void editTask() {
     Task task = Task(
       id: widget.task.id,
@@ -191,8 +191,8 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
       description: descriptionController.text,
       dateTime: selectDate,
     );
-    FirebaseUtils.editTaskFromFireStore(task).timeout(Duration(seconds: 1),
-        onTimeout: () {
+    FirebaseUtils.editTaskFromFireStore(task)
+        .timeout(const Duration(seconds: 1), onTimeout: () {
       listProvider.getAllTasksFromFireStore();
     });
   }

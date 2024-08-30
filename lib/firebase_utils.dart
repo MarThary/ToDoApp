@@ -40,7 +40,6 @@ class FirebaseUtils {
   }
 
   static Future<void> updateTaskInFireStore(Task task) async {
-    // Replace with your Firestore update logic
     await getTaskCollection().doc(task.id).update({
       'isDone': task.isDone,
     });

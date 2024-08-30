@@ -7,7 +7,7 @@ import 'package:todoapp/home/settings/theme_bottom_sheet.dart';
 import 'package:todoapp/providers/app_config_provider.dart';
 
 class SettingsTab extends StatefulWidget {
-  const SettingsTab({Key? key}) : super(key: key);
+  const SettingsTab({super.key});
 
   @override
   State<SettingsTab> createState() => _SettingsTabState();
@@ -17,10 +17,9 @@ class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     var provider = Provider.of<AppConfigProvider>(context);
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +27,7 @@ class _SettingsTabState extends State<SettingsTab> {
               style: Theme.of(context).textTheme.bodyMedium),
           SizedBox(height: height * 0.02),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: provider.isDarkMode()
                     ? AppColors.backgroundDarkColor
@@ -67,7 +66,7 @@ class _SettingsTabState extends State<SettingsTab> {
               style: Theme.of(context).textTheme.bodyMedium),
           SizedBox(height: height * 0.02),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: provider.isDarkMode()
                     ? AppColors.backgroundDarkColor
@@ -106,17 +105,17 @@ class _SettingsTabState extends State<SettingsTab> {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: AppColors.primaryColor, width: 2)),
+            side: const BorderSide(color: AppColors.primaryColor, width: 2)),
         context: context,
-        builder: (context) => LanguageBottomSheet());
+        builder: (context) => const LanguageBottomSheet());
   }
 
   void showThemeBottomSheet() {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: AppColors.primaryColor, width: 2)),
+            side: const BorderSide(color: AppColors.primaryColor, width: 2)),
         context: context,
-        builder: (context) => ThemeBottomSheet());
+        builder: (context) => const ThemeBottomSheet());
   }
 }

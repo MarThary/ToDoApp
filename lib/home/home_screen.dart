@@ -8,6 +8,8 @@ import 'package:todoapp/home/task_list/task_list_tab.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home_screen";
 
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -38,12 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         items: [
           BottomNavigationBarItem(
-              icon: ImageIcon(
+              icon: const ImageIcon(
                 AssetImage('assets/images/icon_list.png'),
               ),
               label: task),
           BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/images/icon_settings.png')),
+              icon: const ImageIcon(
+                  AssetImage('assets/images/icon_settings.png')),
               label: set),
         ],
       ),
@@ -51,14 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           showAddTaskBottomSheet();
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           size: 40,
           color: AppColors.whiteColor,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: selectedIndex == 0 ? TaskListTab() : SettingsTab(),
+      body: selectedIndex == 0 ? TaskListTab() : const SettingsTab(),
     );
   }
 
@@ -66,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: AppColors.primaryColor, width: 2)),
+            side: const BorderSide(color: AppColors.primaryColor, width: 2)),
         context: context,
         builder: (context) => AddTaskBottomSheet());
   }
