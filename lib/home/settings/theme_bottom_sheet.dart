@@ -5,7 +5,7 @@ import 'package:todoapp/app_colors.dart';
 import 'package:todoapp/providers/app_config_provider.dart';
 
 class ThemeBottomSheet extends StatefulWidget {
-  const ThemeBottomSheet({Key? key}) : super(key: key);
+  const ThemeBottomSheet({super.key});
 
   @override
   State<ThemeBottomSheet> createState() => _ThemeBottomSheetState();
@@ -16,7 +16,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   Widget build(BuildContext context) {
     var provider = Provider.of<AppConfigProvider>(context);
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -24,7 +24,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
             padding: const EdgeInsets.all(12.0),
             child: InkWell(
               onTap: () {
-                provider.chanageTheme(ThemeMode.light);
+                provider.changeTheme(ThemeMode.light);
               },
               child: provider.appMode == ThemeMode.light
                   ? getSelectedItemWidget(AppLocalizations.of(context)!.light)
@@ -36,7 +36,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
             padding: const EdgeInsets.all(12.0),
             child: InkWell(
                 onTap: () {
-                  provider.chanageTheme(ThemeMode.dark);
+                  provider.changeTheme(ThemeMode.dark);
                 },
                 child: provider.isDarkMode()
                     ? getSelectedItemWidget(AppLocalizations.of(context)!.dark)
@@ -57,7 +57,7 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
                 .textTheme
                 .bodySmall
                 ?.copyWith(color: AppColors.primaryColor)),
-        Icon(Icons.check, size: 30, color: AppColors.primaryColor)
+        const Icon(Icons.check, size: 30, color: AppColors.primaryColor)
       ],
     );
   }

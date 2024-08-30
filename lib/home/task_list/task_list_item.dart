@@ -10,10 +10,11 @@ import 'package:todoapp/providers/app_config_provider.dart';
 import '../../model/task.dart';
 import '../../providers/list_provider.dart';
 
+// ignore: must_be_immutable
 class TaskListItem extends StatefulWidget {
   Task task;
 
-  TaskListItem({required this.task});
+  TaskListItem({super.key, required this.task});
 
   @override
   State<TaskListItem> createState() => _TaskListItemState();
@@ -27,7 +28,7 @@ class _TaskListItemState extends State<TaskListItem> {
     listProvider = Provider.of<ListProvider>(context);
     var provider = Provider.of<AppConfigProvider>(context);
     return Container(
-      margin: EdgeInsets.all(12.0),
+      margin: const EdgeInsets.all(12.0),
       child: Slidable(
         startActionPane: ActionPane(
           extentRatio: 0.27,
@@ -37,20 +38,28 @@ class _TaskListItemState extends State<TaskListItem> {
               borderRadius: BorderRadius.circular(15),
               onPressed: (context) {
                 FirebaseUtils.deleteTaskFromFireStore(widget.task).timeout(
-                    Duration(
+                    const Duration(
                       seconds: 1,
                     ), onTimeout: () {
-                  print('Task Deleted Successfully');
                   listProvider.getAllTasksFromFireStore();
                 });
-                const snackdemo = SnackBar(
+                const snackdemoEn = SnackBar(
                   content: Text('Task Deleted Successfully'),
                   backgroundColor: AppColors.primaryColor,
                   elevation: 10,
                   behavior: SnackBarBehavior.floating,
                   margin: EdgeInsets.all(40),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                const snackdemoAr = SnackBar(
+                  content: Text('تم حذف المهمة بنجاح'),
+                  backgroundColor: AppColors.primaryColor,
+                  elevation: 30,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(50),
+                );
+                provider.appLanguage == 'en'
+                    ? ScaffoldMessenger.of(context).showSnackBar(snackdemoEn)
+                    : ScaffoldMessenger.of(context).showSnackBar(snackdemoAr);
               },
               backgroundColor: AppColors.redColor,
               foregroundColor: AppColors.whiteColor,
@@ -61,7 +70,7 @@ class _TaskListItemState extends State<TaskListItem> {
         ),
         endActionPane: ActionPane(
           extentRatio: 0.25,
-          motion: ScrollMotion(),
+          motion: const ScrollMotion(),
           children: [
             SlidableAction(
               borderRadius: BorderRadius.circular(15),
@@ -70,35 +79,65 @@ class _TaskListItemState extends State<TaskListItem> {
                 if (widget.task.isDone == true) {
                   showDialog(
                       context: context,
-                      builder: (ctx) => AlertDialog(
-                              content: const Text(
-                                  "You can not edit task ,Task is already done ."),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                  },
-                                  child: Container(
-                                    color: AppColors.primaryColor,
-                                    padding: const EdgeInsets.all(14),
-                                    child: const Text("Ok",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                              ]));
+                      builder: provider.isDarkMode()
+                          ? (ctx) => AlertDialog(
+                                  backgroundColor:
+                                      AppColors.backgroundDarkColor,
+                                  content: provider.appLanguage == 'en'
+                                      ? const Text(
+                                          "You can not edit task ,Task is already done .")
+                                      : const Text(
+                                          "لا يمكنك تغيير المهمة، المهمة قد تمت بالفعل ."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                      },
+                                      child: Container(
+                                        color: AppColors.primaryColor,
+                                        padding: const EdgeInsets.all(14),
+                                        child: provider.appLanguage == 'en'
+                                            ? const Text("Ok",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                            : const Text("حسنا",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                      ),
+                                    ),
+                                  ])
+                          : (ctx) => AlertDialog(
+                                  content: const Text(
+                                      "You can not edit task ,Task is already done ."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                      },
+                                      child: Container(
+                                        color: AppColors.primaryColor,
+                                        padding: const EdgeInsets.all(14),
+                                        child: const Text("Ok",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                    ),
+                                  ]));
                 } else {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditTaskSheet(
-                          task: widget.task), // Pass the task here
+                      builder: (context) => EditTaskSheet(task: widget.task),
                     ),
                   );
                 }
               },
-              backgroundColor: Color(0xFF7BC043),
+              backgroundColor: const Color(0xFF7BC043),
               foregroundColor: Colors.white,
               icon: Icons.edit,
               label: AppLocalizations.of(context)!.edit,
@@ -106,7 +145,7 @@ class _TaskListItemState extends State<TaskListItem> {
           ],
         ),
         child: Container(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: provider.isDarkMode()
                 ? AppColors.blackDarkColor
@@ -117,7 +156,7 @@ class _TaskListItemState extends State<TaskListItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   height: MediaQuery.of(context).size.height * 0.1,
                   width: 4,
                   color: widget.task.isDone
@@ -162,7 +201,7 @@ class _TaskListItemState extends State<TaskListItem> {
                             .bodyLarge
                             ?.copyWith(color: AppColors.greenColor),
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.check,
                         size: 35,
                         color: AppColors.primaryColor,
